@@ -14,7 +14,7 @@
       </header>
       <!-- ปุ่มเพิ่มรายการและช่องค้นหา -->
       <div
-        class="bg-white p-6 rounded-lg shadow-lg mb-6 flex items-center justify-between gap-6"
+        class="flex-container bg-white p-6 rounded-lg shadow-lg mb-6 flex items-center justify-between gap-6"
       >
         <!-- ปุ่มเพิ่มรายการ -->
         <RouterLink
@@ -1185,7 +1185,6 @@ button:disabled {
 .icon-size {
   width: 24px;
   height: 24px;
-  fill: currentColor;
 }
 
 /* เพิ่มเอฟเฟกต์ไอคอน */
@@ -1221,99 +1220,126 @@ button:disabled {
     height: 20px;
   }
 }
-/* ตัว Search Bar */
+/* Search Bar Container */
+.search-bar-container {
+  width: 100%;
+  max-width: 700px; /* ปรับให้มีขนาดเหมาะสมกับ Desktop */
+  margin: auto;
+}
+
+/* Search Bar */
 .search-bar {
   display: flex;
   align-items: center;
-  width: 100%; /* ใช้ความกว้างเต็มพื้นที่ */
-  max-width: 700px; /* กำหนดความกว้างสูงสุด */
-  background-color: #ffffff; /* สีพื้นหลัง */
-  border: 2px solid #fbc02d; /* เส้นขอบสีเหลือง (EGAT) */
-  border-radius: 9999px; /* มุมโค้งกลม */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เงา */
-  transition: all 0.3s ease; /* เพิ่มเอฟเฟกต์ */
-  margin: auto; /* จัดให้อยู่กึ่งกลาง */
+  width: 100%;
+  background-color: #ffffff;
+  border: 2px solid #ffc107; /* สีเหลือง EGAT */
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
 }
 
-/* ไอคอนค้นหา */
+/* Search Icon */
 .search-icon {
-  padding: 0.75rem 1rem; /* เพิ่มระยะห่าง */
-  color: #1565c0; /* สีน้ำเงินเข้ม */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 0.5rem;
 }
 
 .search-icon-svg {
   width: 1.5rem;
   height: 1.5rem;
-  fill: currentColor;
+  fill: #ffc107;
 }
 
-/* ช่อง Input */
+/* Search Input */
 .search-input {
-  flex: 1; /* ให้ขยายเต็มที่ */
-  padding: 0.75rem 1rem; /* ระยะห่างภายใน */
-  border: none; /* ไม่มีขอบ */
-  border-radius: 9999px; /* มุมโค้ง */
-  font-size: 1rem; /* ขนาดตัวอักษร */
-  color: #374151; /* สีข้อความ */
-  outline: none; /* ไม่มีกรอบเมื่อคลิก */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #374151;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
 }
 
 .search-input::placeholder {
-  color: #9ca3af; /* สีข้อความ placeholder */
-  font-size: 0.95rem;
+  color: #9ca3af;
+  font-style: italic;
 }
 
-/* ปุ่มค้นหา */
+/* Search Button */
 .search-button {
-  padding: 0.75rem 1.5rem; /* ระยะห่าง */
-  background-color: #fbc02d; /* สีเหลือง (EGAT) */
-  color: #374151; /* สีเทาเข้ม */
-  font-size: 1rem; /* ขนาดตัวอักษร */
-  font-weight: 600; /* ความหนาของตัวอักษร */
-  border: none; /* ไม่มีขอบ */
-  border-radius: 9999px; /* มุมโค้ง */
-  cursor: pointer; /* เปลี่ยน cursor */
-  transition: all 0.3s ease; /* เพิ่มเอฟเฟกต์ */
+  background-color: #ffc107;
+  color: #374151;
+  font-weight: 600;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .search-button:hover {
-  background-color: #f9a825; /* สีเหลืองเข้มเมื่อ hover */
-  color: #ffffff; /* เปลี่ยนสีตัวอักษร */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
-}
-
-/* เอฟเฟกต์เมื่อ Hover */
-.search-bar:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
-}
-
-.search-input:focus {
-  background-color: #f9fafb; /* สีพื้นหลังเมื่อ focus */
-  box-shadow: 0 0 6px rgba(21, 101, 192, 0.4); /* เงาสีน้ำเงิน */
+  background-color: #f9a825;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .search-bar {
-    max-width: 100%; /* ใช้เต็มความกว้าง */
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem;
+    border-radius: 12px;
   }
 
   .search-icon {
-    padding: 0.5rem;
+    display: none; /* ซ่อนไอคอนในมือถือ */
   }
 
   .search-input {
-    padding: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+    text-align: center; /* จัดให้ข้อความอยู่ตรงกลาง */
   }
 
   .search-button {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 8px;
+    font-size: 14px;
+    padding: 10px;
   }
 }
+/* Responsive สำหรับมือถือขนาดเล็ก */
+@media (max-width: 480px) {
+  .search-bar {
+    padding: 0.2rem 0.4rem;
+  }
 
+  .search-input {
+    font-size: 0.85rem;
+    padding: 0.2rem;
+  }
+
+  .search-button {
+    font-size: 0.85rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .search-icon-svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .search-bar-container {
+    width: 100%;
+  }
+}
 /* Custom Scrollbar Styling */
 .scrollbar-custom {
   scrollbar-width: thin; /* สำหรับ Firefox */
@@ -1338,6 +1364,85 @@ button:disabled {
   background: #f9f9f9; /* สีของ Track */
   border-radius: 4px; /* ทำมุม Track ให้โค้งมน */
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* เพิ่มเงาใน Track */
+}
+/* ปรับขนาดและการจัดเรียงช่องค้นหา และปุ่มเพิ่มรายการ */
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1rem; /* ระยะห่างระหว่างปุ่มและช่องค้นหา */
+  margin-bottom: 1rem;
+}
+
+/* Responsive สำหรับ Tablet และมือถือ */
+@media (max-width: 768px) {
+  .flex-container {
+    flex-direction: column;
+    align-items: stretch; /* ทำให้เต็มความกว้าง */
+    gap: 0.75rem;
+  }
+}
+/* ป้องกัน header ขึ้นบรรทัดใหม่ */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap; /* ป้องกันข้อความขึ้นบรรทัดใหม่ */
+  overflow: hidden;
+}
+
+header h1 {
+  font-size: 2.5rem; /* ขนาดตัวอักษรปกติ */
+  font-weight: bold;
+  text-overflow: ellipsis; /* ถ้าข้อความยาวเกินไปให้ขึ้น … */
+  max-width: 100%;
+}
+
+header p {
+  font-size: 1rem;
+}
+
+/* --- 📱 Responsive สำหรับหน้าจอขนาดเล็ก --- */
+@media (max-width: 1024px) {
+  header h1 {
+    font-size: 1.5rem; /* ลดขนาดตัวอักษร */
+  }
+
+  header p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 10px; /* ลด padding ให้เล็กลง */
+  }
+
+  header h1 {
+    font-size: 1.5rem; /* ลดขนาด font */
+  }
+
+  header p {
+    font-size: 0.85rem;
+  }
+}
+
+/* สำหรับมือถือขนาดเล็กมาก */
+@media (max-width: 480px) {
+  header {
+    padding: 8px;
+  }
+
+  header h1 {
+    font-size: 1rem; /* ลดขนาดลงเพื่อไม่ให้ล้น */
+  }
+
+  header p {
+    font-size: 0.8rem;
+  }
 }
 </style>
 //admin//crument//curu//index.vue//dont.fuse

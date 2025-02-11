@@ -405,8 +405,7 @@ svg {
 }
 @media (max-width: 768px) {
   .preview-container {
-    width: 80px;
-    height: 80px;
+    max-width: 150px;
   }
 
   .btn {
@@ -443,8 +442,7 @@ svg {
   }
 
   .preview-container {
-    width: 80px;
-    height: 80px;
+    max-width: 120px;
   }
 }
 /* ตกแต่งช่องเลือกวันที่ */
@@ -483,3 +481,4 @@ svg {
   background-color: #0056b3;
 }
 </style>
+//crument/curu.vue

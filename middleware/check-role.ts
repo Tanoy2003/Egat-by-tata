@@ -1,14 +1,18 @@
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
   if (to.path.startsWith("/admin")) {
     const authStore = useAuthStore();
-    authStore.initializeAuth(); // ✅ ตรวจสอบสถานะการล็อกอินก่อน
+    await authStore.initializeAuth(); // ✅ โหลดข้อมูลก่อน
 
     const role = authStore.user?.role || localStorage.getItem("role");
 
-    console.log("🔹 User Role:", role); // ✅ Debug role
+    console.log("🔹 Middleware User Role:", role);
+    console.log("🔹 กำลังเช็คสิทธิ์เข้า admin...");
 
     if (role !== "admin") {
-      return navigateTo("/users"); // ❌ ห้ามเข้าถ้าไม่ใช่ Admin
+      console.log("🚨 เปลี่ยนเส้นทางไป /users เพราะไม่ใช่ admin");
+      return navigateTo("/users");
     }
   }
 });
+
+//middleware/check-role.ts

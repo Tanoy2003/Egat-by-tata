@@ -94,24 +94,22 @@ definePageMeta({
     <div
       class="p-4 md:p-8 bg-gradient-to-b from-blue-50 via-white to-yellow-50 min-h-screen"
     >
-      <!-- Header -->
-      <div
-        class="text-center mb-8 bg-gradient-to-r from-blue-900 to-blue-600 text-white py-10 rounded-xl shadow-lg"
-      >
+      <!-- Header dashboard -->
+      <div class="header-dashboard">
         <div class="flex items-center justify-center gap-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-12 h-12"
+            class="header-icon"
           >
             <path
-              d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z"
+              d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875 0.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875 0.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z"
             />
           </svg>
-          <h1 class="text-4xl md:text-5xl font-extrabold tracking-wider">Dashboard</h1>
+          <h1>Dashboard</h1>
         </div>
-        <p class="text-lg mt-2">ภาพรวมระบบ</p>
+        <p>ภาพรวมระบบ</p>
       </div>
 
       <!-- Summary Section -->
@@ -346,6 +344,105 @@ footer {
 
   .p-4 {
     padding: 0.5rem; /* ลด padding */
+  }
+}
+/* 🌟 Header Dashboard - สไตล์พื้นฐาน */
+.header-dashboard {
+  background: linear-gradient(to right, #1e3a8a, #2563eb);
+  color: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 🌟 ขนาดของข้อความหลัก */
+.header-dashboard h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  font-family: "Prompt", sans-serif;
+}
+
+/* 🌟 ขนาดของข้อความรอง */
+.header-dashboard p {
+  font-size: 1.25rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* 🌟 ปรับขนาดไอคอน */
+.header-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+/* 📱 Responsive สำหรับ Tablet */
+@media (max-width: 1024px) {
+  .header-dashboard {
+    padding: 2rem;
+    border-radius: 0.75rem;
+  }
+
+  .header-dashboard h1 {
+    font-size: 2.25rem;
+  }
+
+  .header-dashboard p {
+    font-size: 1rem;
+  }
+
+  .header-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+/* 📱 Responsive สำหรับมือถือ */
+@media (max-width: 768px) {
+  .header-dashboard {
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .header-dashboard h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .header-dashboard p {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .header-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* 📱 Responsive สำหรับมือถือขนาดเล็ก */
+@media (max-width: 480px) {
+  .header-dashboard {
+    padding: 1.2rem;
+  }
+
+  .header-dashboard h1 {
+    font-size: 1.75rem;
+  }
+
+  .header-dashboard p {
+    font-size: 0.9rem;
+  }
+
+  .header-icon {
+    width: 2rem;
+    height: 2rem;
   }
 }
 </style>

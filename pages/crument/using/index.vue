@@ -83,7 +83,6 @@
           <input
             v-model="date"
             type="datetime-local"
-            
             class="input input-bordered focus:ring focus:ring-blue-300"
           />
         </div>
@@ -404,10 +403,8 @@ svg {
 }
 @media (max-width: 768px) {
   .preview-container {
-    width: 80px;
-    height: 80px;
+    max-width: 150px;
   }
-
   .btn {
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
@@ -442,8 +439,7 @@ svg {
   }
 
   .preview-container {
-    width: 80px;
-    height: 80px;
+    max-width: 120px;
   }
 }
 </style>

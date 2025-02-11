@@ -94,6 +94,26 @@
           </ul>
           <!-- Close Button -->
           <button class="text-gray-700 mt-4" @click="toggleMobileNav">ปิดเมนู</button>
+          <!-- ปุ่มออกจากระบบ Mobile Sidebar -->
+          <div class="mobile-logout-container">
+            <button @click="logoutAndRedirect" class="mobile-logout-button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#ffffff"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+                />
+              </svg>
+              <span>ออกจากระบบ</span>
+            </button>
+          </div>
         </div>
       </transition>
     </div>
@@ -442,8 +462,18 @@ const closeModal = () => {
 
 const logoutAndRedirect = async () => {
   try {
-    await authStore.logout(); // ล็อกเอาต์
-    router.push("/login"); // เปลี่ยนเส้นทางไปยังหน้าล็อกอิน
+    console.log("⚠️ logoutAndRedirect ถูกเรียก");
+    console.trace(); // ✅ ตรวจสอบว่าโค้ดไหนเป็นตัวเรียก
+
+    const logoutSuccess = await authStore.logout(); // ล็อกเอาต์
+
+    if (logoutSuccess) {
+      // ✅ เช็คก่อนเปลี่ยนเส้นทาง
+      console.log("🔀 เปลี่ยนเส้นทางไปยัง /login");
+      router.push("/login");
+    } else {
+      console.log("🚫 ผู้ใช้ยกเลิกการล็อกเอาต์ ไม่เปลี่ยนเส้นทาง");
+    }
   } catch (error) {
     console.error("Error logging out:", error);
   }
@@ -496,6 +526,40 @@ html {
 .logout-button:active {
   transform: translateY(0);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Container ของปุ่มออกจากระบบใน Mobile Sidebar */
+.mobile-logout-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  text-align: center;
+}
+
+/* ปุ่มออกจากระบบใน Mobile Sidebar */
+.mobile-logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background-color: #dc2626;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.mobile-logout-button:hover {
+  background-color: #b91c1c;
+}
+
+.mobile-logout-button:active {
+  transform: scale(0.95);
 }
 
 /* Submenu */

@@ -93,6 +93,26 @@
           </ul>
           <!-- Close Button -->
           <button class="text-gray-700 mt-4" @click="toggleMobileNav">ปิดเมนู</button>
+          <!-- ปุ่มล็อกอิน Mobile Sidebar -->
+          <div class="mobile-login-container">
+            <button @click="redirectToLogin" class="mobile-login-button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="white"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                />
+              </svg>
+              <span>ล็อกอินเพื่อจัดการข้อมูล</span>
+            </button>
+          </div>
         </div>
       </transition>
     </div>
@@ -615,6 +635,39 @@ li:hover {
 .slide-fade-left-leave-to {
   opacity: 0;
   transform: translateX(-100%);
+}
+/* Container ของปุ่มล็อกอินใน Mobile Sidebar */
+.mobile-login-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  text-align: center;
+}
+
+/* ปุ่มล็อกอินใน Mobile Sidebar */
+.mobile-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background-color: #16a34a; /* สีเขียว */
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.mobile-login-button:hover {
+  background-color: #15803d; /* สีเขียวเข้ม */
+}
+
+.mobile-login-button:active {
+  transform: scale(0.95);
 }
 </style>
 //userlayout//v1

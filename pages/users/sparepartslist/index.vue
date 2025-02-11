@@ -1076,8 +1076,9 @@ img[src]:not([alt]) {
 }
 /* Search Bar Container */
 .search-bar-container {
-  width: 100%; /* ใช้ความกว้างเต็มพื้นที่ */
-  max-width: auto; /* กำหนดความกว้างสูงสุด */
+  width: 100%;
+  max-width: 700px; /* ปรับให้มีขนาดเหมาะสมกับ Desktop */
+  margin: auto;
 }
 
 /* Search Bar */
@@ -1085,12 +1086,12 @@ img[src]:not([alt]) {
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: #ffffff; /* สีพื้นหลัง */
+  background-color: #ffffff;
   border: 2px solid #ffc107; /* สีเหลือง EGAT */
-  border-radius: 9999px; /* มุมโค้งกลม */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
-  padding: 0.5rem 1rem; /* ระยะห่างด้านใน */
-  transition: all 0.3s ease; /* เพิ่มเอฟเฟกต์ */
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
 }
 
 /* Search Icon */
@@ -1104,7 +1105,7 @@ img[src]:not([alt]) {
 .search-icon-svg {
   width: 1.5rem;
   height: 1.5rem;
-  fill: #ffc107; /* สีเหลือง EGAT */
+  fill: #ffc107;
 }
 
 /* Search Input */
@@ -1113,42 +1114,62 @@ img[src]:not([alt]) {
   border: none;
   outline: none;
   font-size: 1rem;
-  color: #374151; /* สีข้อความ */
-  padding: 0.5rem 1rem; /* ระยะห่างภายใน */
-  background-color: transparent; /* โปร่งใส */
+  color: #374151;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
 }
 
 .search-input::placeholder {
-  color: #9ca3af; /* สีข้อความ Placeholder */
-  font-style: italic; /* ตัวเอียง */
+  color: #9ca3af;
+  font-style: italic;
 }
 
 /* Search Button */
 .search-button {
-  background-color: #ffc107; /* สีเหลือง EGAT */
-  color: #374151; /* สีเทาเข้ม */
-  font-weight: 600; /* ตัวหนา */
+  background-color: #ffc107;
+  color: #374151;
+  font-weight: 600;
   border: none;
-  border-radius: 9999px; /* มุมโค้ง */
-  padding: 0.5rem 1rem; /* ระยะห่างภายใน */
-  transition: all 0.3s ease; /* เพิ่มเอฟเฟกต์ */
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .search-button:hover {
-  background-color: #f9a825; /* สีเหลืองเข้ม */
-  color: #ffffff; /* สีตัวอักษร */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+  background-color: #f9a825;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Hover Effect */
-.search-bar:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* เพิ่มเงาเมื่อ Hover */
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+
+  .search-icon {
+    display: none; /* ซ่อนไอคอนในมือถือ */
+  }
+
+  .search-input {
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+    text-align: center; /* จัดให้ข้อความอยู่ตรงกลาง */
+  }
+
+  .search-button {
+    width: 100%;
+    margin-top: 8px;
+    font-size: 14px;
+    padding: 10px;
+  }
 }
 
-.search-input:focus {
-  box-shadow: 0 0 6px rgba(255, 193, 7, 0.5); /* เงาสีเหลือง */
-}
 /* Scrollbar Styling สำหรับตาราง */
 .table-container {
   width: 100%;

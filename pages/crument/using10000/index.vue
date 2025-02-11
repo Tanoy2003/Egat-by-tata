@@ -403,10 +403,10 @@ input[type="checkbox"]:hover {
 svg {
   flex-shrink: 0;
 }
+
 @media (max-width: 768px) {
   .preview-container {
-    width: 80px;
-    height: 80px;
+    max-width: 150px;
   }
 
   .btn {
@@ -443,8 +443,8 @@ svg {
   }
 
   .preview-container {
-    width: 80px;
-    height: 80px;
+    max-width: 120px;
   }
 }
 </style>
+//crument/using10000/index.vue
