@@ -25,6 +25,8 @@ const modalImageUrl = ref(""); // เก็บ URL ของรูปภาพ�
 const previewImageUrl = ref(null);
 const isSearchModalOpen = ref(false); // สถานะเปิด/ปิด modal ค้นหา
 
+const totalMaterialsCount = computed(() => materials.value.length);
+
 const fuseOptions = {
   keys: ["name", "partnumber", "category"], // ฟิลด์ที่ต้องการค้นหา
   threshold: 0.5, // ระดับความคลาดเคลื่อน (0 = ตรงทั้งหมด, 1 = ยอมรับได้ทุกระดับ)
@@ -46,24 +48,21 @@ fuse.setCollection(materials.value); // ตั้งค่า index ใหม่
 
 // คำนวณจำนวนหน้าทั้งหมดโดยอัตโนมัติ
 const totalPageCount = computed(() => {
-  // คำนวณจำนวนหน้าจาก filteredMaterials
-  return Math.ceil(filteredMaterials.value.length / itemsPerPage);
+  return Math.ceil(filteredMaterials.value.length / selectedItemsPerPage.value);
 });
 
 // ฟังก์ชันสำหรับคำนวณหน้าที่จะแสดง
 const visiblePages = computed(() => {
   const maxVisible = 6; // จำนวนหน้าที่จะแสดงพร้อมกัน
   const pages = [];
+  const total = totalPageCount.value; // ใช้ค่าที่อัปเดต
 
   // คำนวณช่วงของหน้า
-  const startPage = Math.max(
+  let startPage = Math.max(
     1,
-    Math.min(
-      currentPage.value - Math.floor(maxVisible / 2),
-      totalPageCount.value - maxVisible + 1
-    )
+    Math.min(currentPage.value - Math.floor(maxVisible / 2), total - maxVisible + 1)
   );
-  const endPage = Math.min(totalPageCount.value, startPage + maxVisible - 1);
+  let endPage = Math.min(total, startPage + maxVisible - 1);
 
   for (let i = startPage; i <= endPage; i++) {
     pages.push(i);
@@ -199,11 +198,26 @@ const fetchMaterials = async () => {
   }
 };
 
+const selectedItemsPerPage = ref(10); // ค่าเริ่มต้นเป็น 10
+const totalItems = computed(() => filteredMaterials.value.length); // คำนวณจำนวนรายการทั้งหมด
+
 const paginatedMaterials = computed(() => {
-  const filtered = filteredMaterials.value; // ใช้ผลลัพธ์จาก filteredMaterials
-  const startIndex = (currentPage.value - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  return filtered.slice(startIndex, endIndex);
+  const startIndex = (currentPage.value - 1) * selectedItemsPerPage.value;
+  const endIndex =
+    selectedItemsPerPage.value === totalItems.value // ถ้าเลือก "ทั้งหมด"
+      ? totalItems.value
+      : startIndex + selectedItemsPerPage.value;
+
+  return filteredMaterials.value.slice(startIndex, endIndex);
+});
+
+const defaultItemsPerPage = computed(() => {
+  if (materials.value.length <= 10) return 10;
+  if (materials.value.length <= 20) return 20;
+  if (materials.value.length <= 40) return 40;
+  if (materials.value.length <= 80) return 80;
+  if (materials.value.length <= 100) return 100;
+  return materials.value.length; // ถ้ามากกว่า 50 ให้แสดงทั้งหมด
 });
 
 // ตรวจสอบรายการอะไหล่ที่ต้องแจ้งเตือน
@@ -286,8 +300,17 @@ watch(quantity, (newValue) => {
   console.log("quantity:", newValue);
 });
 
+// อัปเดตค่า default เมื่อโหลดข้อมูล
+watch(materials, () => {
+  selectedItemsPerPage.value = defaultItemsPerPage.value;
+});
+
 watch(selectedMaterial, (newValue) => {
   console.log("selectedMaterial.value.id :", newValue);
+});
+
+watch(selectedItemsPerPage, () => {
+  currentPage.value = 1; // รีเซ็ตไปหน้าแรกเมื่อจำนวนรายการต่อหน้าถูกเปลี่ยน
 });
 
 const handleMaterialAction = async () => {
@@ -637,8 +660,9 @@ definePageMeta({
                           class="hover:bg-blue-50"
                         >
                           <th data-label="ลำดับ">
-                            {{ index + 1 }}
+                            {{ index + 1 + (currentPage - 1) * selectedItemsPerPage }}
                           </th>
+
                           <td data-label="รูปภาพ">
                             <img
                               v-if="item.imageUrl"
@@ -776,7 +800,21 @@ definePageMeta({
 
         <!-- Materials Table -->
         <div class="bg-white p-6 rounded-lg shadow-lg">
-          <h2 class="text-xl font-bold mb-4 text-black-600 text-center">รายการอะไหล่</h2>
+          <div class="spare-parts-header">
+            <h2>รายการอะไหล่ (ทั้งหมด: {{ totalMaterialsCount }} รายการ)</h2>
+
+            <div class="items-per-page-container">
+              <select v-model="selectedItemsPerPage" id="itemsPerPage" class="select-box">
+                <option :value="10">10</option>
+                <option :value="20">20</option>
+                <option :value="40">40</option>
+                <option :value="80">80</option>
+                <option :value="100">100</option>
+                <option :value="materials.length">ทั้งหมด</option>
+              </select>
+            </div>
+          </div>
+
           <div class="overflow-x-auto">
             <!-- เพิ่ม container ที่มี scroll -->
             <div
@@ -800,8 +838,9 @@ definePageMeta({
                 <tbody>
                   <tr v-for="(material, index) in paginatedMaterials" :key="material.id">
                     <th data-label="ลำดับ">
-                      {{ index + 1 + (currentPage - 1) * itemsPerPage }}
+                      {{ index + 1 + (currentPage - 1) * selectedItemsPerPage }}
                     </th>
+
                     <td data-label="รูปภาพ">
                       <!-- แสดงรูปภาพถ้ามี URL -->
                       <img
@@ -2056,6 +2095,91 @@ mark {
   font-weight: bold;
   padding: 0 2px; /* เพิ่มระยะห่างในตัวอักษร */
   border-radius: 3px; /* เพิ่มมุมโค้งมน */
+}
+.spare-parts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: #ffffff; /* สีพื้นหลังขาว */
+  border: 1px solid #e0e0e0; /* เส้นขอบบางๆ */
+  border-radius: 12px; /* ขอบโค้งมน */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+}
+
+/* ✅ หัวข้อรายการอะไหล่ */
+.spare-parts-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50; /* สีเทาเข้มให้ดูสุภาพ */
+  text-align: center;
+  flex-grow: 1; /* ขยายให้เต็มพื้นที่ตรงกลาง */
+}
+
+/* ✅ ส่วนเลือกจำนวนรายการ */
+.items-per-page-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ✅ ปรับสไตล์ select box ให้ดูเป็นมืออาชีพ */
+.select-box {
+  padding: 0.6rem;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.select-box:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+}
+
+/* ✅ ปรับให้ดูดีขึ้นบนจอเล็ก */
+@media (max-width: 768px) {
+  .spare-parts-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .spare-parts-header h2 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .items-per-page-container {
+    justify-content: center;
+  }
+
+  .select-box {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .spare-parts-header {
+    padding: 1.2rem;
+  }
+
+  .spare-parts-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .select-box {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
 }
 </style>
 //sparepartslist//admin//13:09
