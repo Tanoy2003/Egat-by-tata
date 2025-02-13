@@ -2128,19 +2128,38 @@ mark {
 
 /* ✅ ปรับสไตล์ select box ให้ดูเป็นมืออาชีพ */
 .select-box {
-  padding: 0.6rem;
-  border: 1px solid #ced4da;
-  border-radius: 8px;
-  background-color: white;
-  cursor: pointer;
+  padding: 10px 15px; /* เพิ่ม Padding ให้ดูสมดุล */
+  border: 2px solid #007bff; /* เปลี่ยนสีขอบเป็นโทนน้ำเงินสดใส */
+  border-radius: 12px; /* ขอบมน */
+  background-color: #ffffff; /* พื้นหลังขาว */
+  cursor: pointer; /* เปลี่ยนเป็นรูปมือ */
   font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
   transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 3px 6px rgba(0, 123, 255, 0.2); /* เพิ่มเงาสีน้ำเงิน */
+  text-align: center;
 }
 
+/* เอฟเฟกต์เมื่อโฟกัส */
 .select-box:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+  border-color: #0056b3; /* เปลี่ยนขอบเป็นน้ำเงินเข้ม */
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.5);
+}
+
+/* เอฟเฟกต์เมื่อโฮเวอร์ */
+.select-box:hover {
+  border-color: #0056b3;
+  background-color: #f1f8ff; /* เพิ่มเอฟเฟกต์ไฮไลต์ */
+}
+
+/* ✅ ปรับสไตล์ dropdown list */
+.select-box option {
+  font-size: 1rem;
+  font-weight: 500;
+  background: #ffffff;
+  color: #2c3e50;
 }
 
 /* ✅ ปรับให้ดูดีขึ้นบนจอเล็ก */
@@ -2148,11 +2167,11 @@ mark {
   .spare-parts-header {
     flex-direction: column;
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
   }
 
   .spare-parts-header h2 {
-    font-size: 1.25rem;
+    font-size: 1rem;
     text-align: center;
   }
 
@@ -2169,11 +2188,11 @@ mark {
 
 @media (max-width: 480px) {
   .spare-parts-header {
-    padding: 1.2rem;
+    padding: 1rem;
   }
 
   .spare-parts-header h2 {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .select-box {

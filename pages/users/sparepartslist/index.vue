@@ -1279,40 +1279,44 @@ img[src]:not([alt]) {
   flex-wrap: wrap;
 }
 
-/* ✅ ปรับสไตล์ select box ให้ดูเป็นมืออาชีพ */
+/* ✅ ปรับขนาด select-box ให้เหมาะสม */
 .select-box {
-  padding: 10px 15px; /* เพิ่ม Padding ให้ดูสมดุล */
-  border: 2px solid #007bff; /* เปลี่ยนสีขอบเป็นโทนน้ำเงินสดใส */
-  border-radius: 12px; /* ขอบมน */
-  background-color: #ffffff; /* พื้นหลังขาว */
-  cursor: pointer; /* เปลี่ยนเป็นรูปมือ */
+  padding: 8px 12px; /* ลด Padding เมื่อย่อจอ */
+  border: 2px solid #007bff;
+  border-radius: 12px;
+  background-color: #ffffff;
+  cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
   color: #2c3e50;
   transition: all 0.3s ease;
   outline: none;
-  box-shadow: 0 3px 6px rgba(0, 123, 255, 0.2); /* เพิ่มเงาสีน้ำเงิน */
+  box-shadow: 0 3px 6px rgba(0, 123, 255, 0.2);
   text-align: center;
+  height: 42px; /* กำหนดความสูงที่เหมาะสม */
+  min-height: 40px;
+  max-width: 180px; /* ป้องกันไม่ให้กว้างเกินไป */
+}
+
+/* ✅ กำหนดขนาดของตัวเลือกใน Dropdown */
+.select-box option {
+  font-size: 1rem;
+  font-weight: 500;
+  background: #ffffff;
+  color: #2c3e50;
+  padding: 8px; /* ปรับ Padding ภายใน Dropdown */
 }
 
 /* เอฟเฟกต์เมื่อโฟกัส */
 .select-box:focus {
-  border-color: #0056b3; /* เปลี่ยนขอบเป็นน้ำเงินเข้ม */
+  border-color: #0056b3;
   box-shadow: 0 0 8px rgba(0, 86, 179, 0.5);
 }
 
 /* เอฟเฟกต์เมื่อโฮเวอร์ */
 .select-box:hover {
   border-color: #0056b3;
-  background-color: #f1f8ff; /* เพิ่มเอฟเฟกต์ไฮไลต์ */
-}
-
-/* ✅ ปรับสไตล์ dropdown list */
-.select-box option {
-  font-size: 1rem;
-  font-weight: 500;
-  background: #ffffff;
-  color: #2c3e50;
+  background-color: #f1f8ff;
 }
 
 /* ✅ ปรับให้ดูดีขึ้นบนจอเล็ก */
@@ -1320,11 +1324,11 @@ img[src]:not([alt]) {
   .spare-parts-header {
     flex-direction: column;
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
   }
 
   .spare-parts-header h2 {
-    font-size: 1.25rem;
+    font-size: 1rem;
     text-align: center;
   }
 
@@ -1334,23 +1338,38 @@ img[src]:not([alt]) {
 
   .select-box {
     font-size: 0.9rem;
-    padding: 0.5rem;
-    width: 100%;
+    padding: 6px 10px;
+    height: 38px;
+    min-height: 36px;
+    max-width: 150px;
+  }
+
+  .select-box option {
+    font-size: 0.9rem;
+    padding: 6px;
   }
 }
 
 @media (max-width: 480px) {
   .spare-parts-header {
-    padding: 1.2rem;
+    padding: 1rem;
   }
 
   .spare-parts-header h2 {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .select-box {
     font-size: 0.85rem;
-    padding: 0.4rem;
+    padding: 5px 8px;
+    height: 36px;
+    min-height: 34px;
+    max-width: 130px;
+  }
+
+  .select-box option {
+    font-size: 0.85rem;
+    padding: 5px;
   }
 }
 </style>
