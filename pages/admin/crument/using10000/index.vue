@@ -413,146 +413,115 @@
       </div>
 
       <!-- Edit Modal -->
-      <div
-        v-if="modalType === MODAL_TYPES.EDIT"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-      >
-        <div
-          class="bg-white p-6 rounded-lg w-full max-w-3xl max-h-[80vh] overflow-auto shadow-xl"
-        >
-          <h2 class="text-xl font-bold mb-6 text-center text-blue-600">
-            แก้ไขข้อมูลคุรุภัณฑ์ (ราคาต่ำกว่า 10,000)
-          </h2>
-
-          <!-- Edit Form -->
+      <div v-if="modalType === MODAL_TYPES.EDIT" class="modal-overlay">
+        <div class="modal-container">
+          <h2 class="modal-title">แก้ไขข้อมูลคุรุภัณฑ์ (ราคาต่ำกว่า 10,000)</h2>
           <form>
-            <!-- Grid Layout -->
-            <div class="grid grid-cols-3 gap-6">
-              <!-- Column 1 -->
+            <div class="modal-grid">
               <div class="form-control">
-                <label class="font-medium text-gray-700">ลำดับ</label>
+                <label>ลำดับ</label>
                 <input
                   v-model="selectedusing10000.number"
-                  class="input input-bordered focus:ring focus:ring-blue-300"
+                  class="input-field"
                   placeholder="กรอกลำดับ"
                 />
               </div>
               <div class="form-control">
-                <label class="font-medium text-gray-700">ชื่อรุ่น</label>
+                <label>ชื่อรุ่น</label>
                 <input
                   v-model="selectedusing10000.name"
-                  class="input input-bordered focus:ring focus:ring-blue-300"
+                  class="input-field"
                   placeholder="กรอกชื่อรุ่น"
                 />
               </div>
               <div class="form-control">
-                <label class="font-medium text-gray-700">ยี่ห้อ</label>
+                <label>ยี่ห้อ</label>
                 <input
                   v-model="selectedusing10000.brand"
-                  class="input input-bordered focus:ring focus:ring-blue-300"
+                  class="input-field"
                   placeholder="กรอกยี่ห้อ"
                 />
               </div>
-
-              <!-- Column 2 -->
               <div class="form-control">
-                <label class="font-medium text-gray-700">รหัสพัสดุ</label>
+                <label>รหัสพัสดุ</label>
                 <input
                   v-model="selectedusing10000.curunumber"
-                  class="input input-bordered focus:ring focus:ring-blue-300"
+                  class="input-field"
                   placeholder="กรอกรหัสพัสดุ"
                 />
               </div>
               <div class="form-control">
-                <label class="font-medium text-gray-700">รหัสเครื่องมือเครื่องใช้</label>
+                <label>รหัสเครื่องมือเครื่องใช้</label>
                 <input
                   v-model="selectedusing10000.partnumber"
-                  class="input input-bordered focus:ring focus:ring-blue-300"
+                  class="input-field"
                   placeholder="กรอกรหัสเครื่องมือเครื่องใช้"
                 />
               </div>
               <div class="form-control">
-                <label class="font-medium text-gray-700">หมายเลขเครื่อง</label>
+                <label>หมายเลขเครื่อง</label>
                 <input
                   v-model="selectedusing10000.usenumber"
-                  class="input input-bordered focus:ring focus:ring-blue-300"
+                  class="input-field"
                   placeholder="กรอกหมายเลขเครื่อง"
                 />
               </div>
-
-              <!-- Column 3 -->
-              <div class="form-control col-span-3">
-                <label class="font-medium text-gray-700">วันที่ได้มา</label>
+              <div class="form-control col-span-full">
+                <label>วันที่ได้มา</label>
                 <input
                   v-model="selectedusing10000.date"
                   type="datetime-local"
-                  class="input input-bordered focus:ring focus:ring-blue-300"
+                  class="input-field"
                 />
               </div>
-              <div class="form-control col-span-3">
-                <label class="font-medium text-gray-700">รายละเอียด</label>
+              <div class="form-control col-span-full">
+                <label>รายละเอียด</label>
                 <textarea
                   v-model="selectedusing10000.detial"
-                  class="textarea textarea-bordered focus:ring focus:ring-blue-300"
+                  class="textarea-field"
                   placeholder="กรอกรายละเอียด"
                 ></textarea>
               </div>
-              <div class="form-control col-span-3">
-                <label class="font-medium text-gray-700">เลขที่ใบโอน</label>
+              <div class="form-control col-span-full">
+                <label>เลขที่ใบโอน</label>
                 <input
                   v-model="selectedusing10000.detialnumber"
-                  class="input input-bordered focus:ring focus:ring-blue-300"
+                  class="input-field"
                   placeholder="กรอกเลขที่ใบโอน"
                 />
               </div>
-
-              <!-- ช่องแสดงรูปภาพ -->
-              <div class="form-control col-span-3">
-                <label class="font-medium text-gray-700">รูปภาพปัจจุบัน</label>
-                <div class="flex justify-center items-center">
+              <div class="form-control col-span-full">
+                <label>รูปภาพปัจจุบัน</label>
+                <div class="image-preview">
                   <img
                     v-if="previewImageUrl"
                     :src="previewImageUrl"
                     alt="Preview Image"
-                    class="h-40 w-40 object-cover rounded-md border border-gray-300 shadow-sm"
+                    class="preview-img"
                   />
                   <img
                     v-else-if="selectedusing10000.imageUrl"
                     :src="selectedusing10000.imageUrl"
                     alt="Current Image"
-                    class="h-40 w-40 object-cover rounded-md border border-gray-300 shadow-sm"
+                    class="preview-img"
                   />
-                  <p v-else class="text-gray-500 text-center">ไม่มีรูปภาพ</p>
+                  <p v-else class="no-image-text">ไม่มีรูปภาพ</p>
                 </div>
               </div>
-
-              <!-- ช่องอัปโหลดรูปภาพ -->
-              <div class="form-control col-span-3">
-                <label class="font-medium text-gray-700">อัปโหลดรูปภาพใหม่ (ถ้ามี)</label>
+              <div class="form-control col-span-full">
+                <label>อัปโหลดรูปภาพใหม่ (ถ้ามี)</label>
                 <input
                   type="file"
                   accept="image/*"
                   @change="handleImageChange"
-                  class="file-input file-input-bordered w-full"
+                  class="file-input"
                 />
-                <p class="text-sm text-gray-500 mt-2">เลือกรูปภาพใหม่เพื่ออัปเดตข้อมูล</p>
+                <p class="file-hint">เลือกรูปภาพใหม่เพื่ออัปเดตข้อมูล</p>
               </div>
             </div>
-
-            <!-- Buttons -->
-            <div class="mt-8 flex justify-end gap-4">
-              <button
-                @click="closeModal"
-                type="button"
-                class="bg-gray-300 text-black px-6 py-2 rounded-full hover:bg-gray-400 transition"
-              >
-                ยกเลิก
-              </button>
-              <button
-                @click="handleEditusing10000"
-                type="button"
-                class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
-              >
+            <div class="modal-actions">
+              <button @click="closeModal" type="button" class="cancel-btn">ยกเลิก</button>
+              <button @click="handleEditusing10000" type="button" class="save-btn">
                 บันทึก
               </button>
             </div>
@@ -1721,6 +1690,105 @@ header p {
 @media (max-width: 480px) {
   .responsive-h2 {
     font-size: 0.9rem;
+  }
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  z-index: 50;
+}
+.modal-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.modal-title {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2563eb;
+  margin-bottom: 1.5rem;
+}
+.modal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.input-field,
+.textarea-field,
+.file-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+}
+.textarea-field {
+  height: 100px;
+  resize: none;
+}
+.image-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.preview-img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+}
+.no-image-text {
+  text-align: center;
+  color: #6b7280;
+  font-weight: bold;
+}
+.file-hint {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.cancel-btn {
+  background: #d1d5db;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  transition: background 0.2s;
+}
+.cancel-btn:hover {
+  background: #9ca3af;
+}
+.save-btn {
+  background: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  transition: background 0.2s;
+}
+.save-btn:hover {
+  background: #1d4ed8;
+}
+@media (max-width: 640px) {
+  .modal-container {
+    width: 95%;
+    max-width: none;
+  }
+  .preview-img {
+    max-width: 150px;
   }
 }
 </style>
