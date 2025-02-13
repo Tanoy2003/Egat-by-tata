@@ -114,17 +114,13 @@ onUnmounted(() => {
         ระบบบริหารจัดการวัสดุ
       </h1>
     </div>
-    <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-300">
+    <div
+      class="update-container bg-white p-8 rounded-lg shadow-lg border border-gray-300"
+    >
       <h2
         class="text-2xl font-extrabold text-gray-800 mb-6 flex items-center gap-3 justify-center"
       >
-        ⚙️
-        <span>อัปเดตล่าสุด</span>
-        <span
-          class="bg-yellow-400 text-gray-800 px-4 py-1 text-sm font-bold rounded-full"
-        >
-          NEW
-        </span>
+        <span> ⚙️อัปเดตล่าสุด</span>
       </h2>
       <ul class="divide-y divide-gray-200 max-h-96 overflow-y-auto scrollbar-custom">
         <li
@@ -260,6 +256,136 @@ onUnmounted(() => {
   padding: 2px 6px; /* เพิ่มระยะห่างภายใน */
   border-radius: 4px; /* ทำให้มุมโค้งมน */
   display: inline-block; /* ให้ข้อความมีพื้นหลังติดกัน */
+}
+.update-container {
+  max-width: 1200px; /* จำกัดความกว้างสูงสุด */
+  margin: 0 auto; /* จัดกลาง */
+  padding: 20px; /* เพิ่มระยะห่างภายใน */
+  background-color: #ffffff; /* พื้นหลังสีขาว */
+  border-radius: 12px; /* มุมโค้งมน */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* เงา */
+  border: 1px solid #e0e0e0; /* เส้นขอบ */
+}
+
+.update-container h2 {
+  font-size: 1.75rem; /* ขนาดฟอนต์หัวข้อ */
+  font-weight: 700; /* ตัวหนา */
+  color: #333333; /* สีข้อความ */
+  margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* ระยะห่างระหว่างไอคอนและข้อความ */
+}
+
+.update-container h2 span {
+  background-color: #ffcc00; /* พื้นหลังป้าย NEW */
+  color: #333333; /* สีข้อความป้าย NEW */
+  padding: 5px 10px; /* ระยะห่างภายในป้าย */
+  border-radius: 20px; /* มุมโค้งมน */
+  font-size: 0.875rem; /* ขนาดฟอนต์ป้าย */
+  font-weight: 600; /* ตัวหนาปานกลาง */
+}
+
+.update-list {
+  display: grid;
+  gap: 15px; /* ระยะห่างระหว่างรายการ */
+  max-height: 400px; /* ความสูงสูงสุด */
+  overflow-y: auto; /* ให้เลื่อนได้หากมีเนื้อหาเกิน */
+  padding-right: 10px; /* เพิ่มระยะห่างด้านขวาเพื่อไม่ให้เนื้อหาติด Scrollbar */
+}
+
+.update-item {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* ระยะห่างระหว่างไอคอนและเนื้อหา */
+  padding: 15px; /* ระยะห่างภายในรายการ */
+  background-color: #f9f9f9; /* พื้นหลังรายการ */
+  border-radius: 8px; /* มุมโค้งมน */
+  border: 1px solid #e0e0e0; /* เส้นขอบ */
+  transition: all 0.3s ease; /* เพิ่มเอฟเฟกต์ transition */
+}
+
+.update-item:hover {
+  transform: translateY(-2px); /* เลื่อนขึ้นเล็กน้อยเมื่อ hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเมื่อ hover */
+}
+
+.update-item .icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* ทำให้เป็นวงกลม */
+  background-color: #e0f7fa; /* พื้นหลังไอคอน */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงาไอคอน */
+}
+
+.update-item .icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.update-item .content {
+  flex: 1;
+}
+
+.update-item .content p {
+  margin: 0;
+  font-size: 1rem; /* ขนาดฟอนต์เนื้อหา */
+  color: #555555; /* สีข้อความ */
+}
+
+.update-item .content p strong {
+  font-weight: 600; /* ตัวหนา */
+}
+
+.update-item .content .timestamp {
+  font-size: 0.875rem; /* ขนาดฟอนต์เวลา */
+  color: #777777; /* สีข้อความเวลา */
+  margin-top: 5px; /* ระยะห่างด้านบน */
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2rem;
+  color: #666666;
+}
+
+/* Custom Scrollbar */
+.update-list::-webkit-scrollbar {
+  width: 8px; /* ความกว้าง Scrollbar */
+}
+
+.update-list::-webkit-scrollbar-thumb {
+  background-color: #4a90e2; /* สี Scrollbar */
+  border-radius: 4px; /* มุมโค้งมน */
+}
+
+.update-list::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* สีพื้นหลัง Scrollbar */
+  border-radius: 4px; /* มุมโค้งมน */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .update-container {
+    padding: 15px; /* ลดระยะห่างภายในสำหรับหน้าจอเล็ก */
+  }
+
+  .update-container h2 {
+    font-size: 1.5rem; /* ขนาดฟอนต์หัวข้อเล็กลง */
+  }
+
+  .update-item {
+    flex-direction: column; /* จัดเรียงเป็นคอลัมน์ */
+    text-align: center; /* จัดข้อความตรงกลาง */
+  }
+
+  .update-item .icon {
+    margin-bottom: 10px; /* ระยะห่างด้านล่างไอคอน */
+  }
 }
 </style>
 

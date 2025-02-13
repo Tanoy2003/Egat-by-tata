@@ -360,16 +360,16 @@ onMounted(async () => {
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4"
         @click.self="closeSearchModal"
       >
-        <!-- ปุ่มปิด Modal -->
-        <button
-          class="absolute top-4 right-4 bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-110"
-          @click="closeSearchModal"
-        >
-          ✕
-        </button>
         <div
           class="relative bg-white w-full max-w-5xl max-h-[90vh] rounded-lg shadow-2xl overflow-y-auto"
         >
+          <!-- ปุ่มปิด Modal -->
+          <button
+            class="absolute top-4 right-4 bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-110"
+            @click="closeSearchModal"
+          >
+            ✕
+          </button>
           <!-- ตารางข้อมูล -->
           <div class="bg-white p-6 rounded-lg shadow-lg">
             <div class="p-4">
@@ -522,9 +522,9 @@ onMounted(async () => {
                       :key="material.id"
                       class="hover:bg-gray-100 transition-colors"
                     >
-                      <td data-label="ลำดับ">
+                      <th data-label="ลำดับ">
                         {{ index + 1 + (currentPage - 1) * itemsPerPage }}
-                      </td>
+                      </th>
                       <td data-label="รูปภาพ">
                         <img
                           v-if="material.imageUrl"
@@ -664,6 +664,7 @@ onMounted(async () => {
 }
 
 .table th {
+  background-color: #7db9fd;
   text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
   vertical-align: middle; /* จัดให้อยู่กึ่งกลางในแนวตั้ง */
   padding: 12px; /* เพิ่ม Padding */

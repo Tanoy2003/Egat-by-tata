@@ -76,7 +76,7 @@
         </div>
       </div>
       <!-- ตาราง -->
-      <div class="bg-white p-6 rounded-lg shadow-lg">
+      <div class="responsive-table bg-white p-6 rounded-lg shadow-lg">
         <h2 class="text-xl font-bold mb-4 text-blue-600 text-center">
           รายการเครื่องมือเครื่องใช้ราคาต่ำกว่า 10,000 บาท
         </h2>
@@ -220,15 +220,15 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
         @click.self="closeModal"
       >
-        <button
-          @click="closeModal"
-          class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 transition"
-        >
-          ✕
-        </button>
         <div
           class="bg-white p-6 rounded-lg w-full max-w-5xl max-h-[90vh] overflow-auto shadow-lg relative"
         >
+          <button
+            @click="closeModal"
+            class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 transition"
+          >
+            ✕
+          </button>
           <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">
             ผลลัพธ์การค้นหา
           </h2>
@@ -247,7 +247,7 @@
             />
           </div>
 
-          <div class="bg-white p-6 rounded-lg shadow-lg">
+          <div class="responsive-table bg-white p-6 rounded-lg shadow-lg">
             <div class="overflow-y-auto max-h-96">
               <table
                 class="min-w-full table-auto border border-gray-300 rounded-lg shadow-sm"
@@ -265,8 +265,8 @@
                 </thead>
                 <tbody>
                   <tr v-for="result in filteredSearchResults" :key="result.id">
-                    <td>{{ result.number }}</td>
-                    <td>
+                    <th data-label="ลำดับ">{{ result.number }}</th>
+                    <td data-label="รูปภาพ">
                       <img
                         v-if="result.imageUrl"
                         :src="result.imageUrl"
@@ -275,13 +275,13 @@
                       />
                       <span v-else class="text-gray-500">ไม่มีรูปภาพ</span>
                     </td>
-                    <td>
+                    <td data-label="ชื่อรุ่น">
                       <span v-html="highlightText(result.name, searchQuery)"></span>
                     </td>
-                    <td>
+                    <td data-label="รหัสเครื่องมือเครื่องใช้">
                       <span v-html="highlightText(result.partnumber, searchQuery)"></span>
                     </td>
-                    <td>
+                    <td data-label="รายละเอียด">
                       <button
                         @click="openModal(MODAL_TYPES.DETAILS, result)"
                         class="preview-btn"
@@ -289,7 +289,7 @@
                         รายละเอียด
                       </button>
                     </td>
-                    <td>
+                    <td data-label="แก้ไข">
                       <button
                         @click="openModal(MODAL_TYPES.EDIT, result)"
                         class="edit-btn"
@@ -297,7 +297,7 @@
                         แก้ไข
                       </button>
                     </td>
-                    <td>
+                    <td data-label="ลบรายการ">
                       <button
                         @click="openModal(MODAL_TYPES.DELETE, result)"
                         class="delete-btn"
@@ -323,7 +323,7 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       >
         <div
-          class="bg-white p-6 rounded-lg w-[800px] max-h-[90vh] overflow-auto shadow-lg relative"
+          class="details-modal bg-white p-6 rounded-lg w-[800px] max-h-[90vh] overflow-auto shadow-lg relative"
         >
           <!-- ปุ่มปิดมุมขวาบน -->
           <button
@@ -332,7 +332,7 @@
           >
             ✕
           </button>
-          <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">
+          <h2 class="responsive-h2 text-2xl font-bold mb-6 text-center text-blue-600">
             รายละเอียดเครื่องมือเครื่องใช้ราคาต่ำกว่า 10000
           </h2>
 
@@ -1065,30 +1065,122 @@ th:last-child,
 td:last-child {
   border-right: none; /* ไม่แสดงเส้นแนวตั้งในคอลัมน์สุดท้าย */
 }
-/* สำหรับหัวตารางใน Details Modal */
-.details-modal th {
-  text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+/* 🎯 ดีไซน์พื้นฐานสำหรับตารางใน Details Modal */
+.details-modal {
+  width: 90%;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.details-modal table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.details-modal th,
+.details-modal td {
+  text-align: center;
   padding: 12px 16px;
-  background-color: #4f46e5; /* สีพื้นหลังของหัวตาราง */
-  color: white; /* สีข้อความ */
+  font-size: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+/* 🌍 สำหรับจอใหญ่ (Desktop) */
+.details-modal th {
+  background-color: #4f46e5;
+  color: white;
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 14px;
-  border-bottom: 2px solid #e5e7eb; /* เพิ่มเส้นแบ่งด้านล่าง */
-  white-space: nowrap; /* ป้องกันข้อความตัดบรรทัด */
+  font-size: 16px;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
 }
+
 .details-modal td {
-  text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
-  padding: 10px 12px;
-  font-size: 14px;
-  color: #4b5563; /* สีข้อความในตาราง */
-  border-bottom: 1px solid #e5e7eb; /* เพิ่มเส้นแบ่งด้านล่าง */
+  color: #4b5563;
 }
+
 .details-modal tr:nth-child(even) td {
-  background-color: #f9fafb; /* สีพื้นหลังของแถวคู่ */
+  background-color: #f9fafb;
 }
+
 .details-modal tr:hover td {
-  background-color: #e3f2fd; /* สีพื้นหลังเมื่อ hover */
+  background-color: #e3f2fd;
+}
+
+/* 📲 ปรับขนาดสำหรับแท็บเล็ต (หน้าจอกลาง) */
+@media (max-width: 1024px) {
+  .details-modal {
+    max-width: 700px;
+    padding: 16px;
+  }
+
+  .details-modal th,
+  .details-modal td {
+    font-size: 15px;
+    padding: 10px;
+  }
+}
+
+/* 📱 ปรับขนาดสำหรับมือถือ (หน้าจอเล็ก) */
+@media (max-width: 768px) {
+  .details-modal {
+    width: 95%;
+    max-width: 600px;
+    padding: 14px;
+    overflow-x: auto;
+  }
+
+  .details-modal table {
+    min-width: 500px;
+  }
+
+  .details-modal th,
+  .details-modal td {
+    font-size: 10px;
+    padding: 8px;
+  }
+}
+
+/* 📳 ปรับขนาดสำหรับมือถือขนาดเล็กมาก (ต่ำกว่า 480px) */
+@media (max-width: 480px) {
+  .details-modal {
+    width: 95%;
+    max-width: 100%;
+    padding: 12px;
+  }
+
+  .details-modal table {
+    min-width: 300px;
+  }
+
+  .details-modal th,
+  .details-modal td {
+    font-size: 8.5px;
+    padding: 6px;
+  }
+}
+
+/* 🖼️ ปรับขนาดรูปภาพให้เหมาะสม */
+.details-modal td img {
+  max-width: 100px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 🎯 ปรับปุ่มปิด modal */
+.details-modal button {
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+/* 🎯 ปรับปุ่มให้อยู่กึ่งกลาง */
+.details-modal .modal-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
 }
 .preview-container {
   display: flex; /* ใช้ Flexbox */
@@ -1449,6 +1541,186 @@ header p {
 
   header p {
     font-size: 0.8rem;
+  }
+}
+/* 🌍 สำหรับ Desktop - ใช้ตารางปกติ */
+@media (min-width: 769px) {
+  .responsive-table table {
+    display: table;
+    width: 100%;
+  }
+  .responsive-table thead {
+    display: table-header-group;
+  }
+  .responsive-table tbody {
+    display: table-row-group;
+  }
+  .responsive-table tr {
+    display: table-row;
+  }
+  .responsive-table th,
+  .responsive-table td {
+    display: table-cell;
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+  }
+}
+
+/* 📱 ปรับสำหรับมือถือ → ใช้ Card แทน Table */
+@media (max-width: 768px) {
+  .responsive-table table,
+  .responsive-table thead,
+  .responsive-table tbody,
+  .responsive-table th,
+  .responsive-table td,
+  .responsive-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-table thead {
+    display: none; /* ซ่อนหัวตาราง */
+  }
+
+  .responsive-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+  }
+
+  /* ปรับแต่ละ cell ให้แสดงแบบ 2 คอลัมน์ */
+  .responsive-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+  }
+
+  /* ลบเส้นขอบแถวสุดท้าย */
+  .responsive-table tbody td:last-child {
+    border-bottom: none;
+  }
+
+  /* ทำให้ชื่อของแต่ละ cell อยู่ฝั่งซ้าย */
+  .responsive-table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #003c71;
+    flex-shrink: 0;
+    width: 50%;
+    text-align: left;
+    padding-right: 12px;
+  }
+
+  /* ข้อมูลให้อยู่ฝั่งขวา */
+  .responsive-table tbody td span {
+    width: 50%;
+    text-align: right;
+    font-size: 14px;
+    color: #374151;
+    font-weight: 500;
+  }
+
+  /* ปรับขนาดรูปภาพใน Card */
+  .responsive-table tbody td img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-left: auto;
+    border: 2px solid #e5e7eb;
+  }
+
+  /* ปรับขนาดปุ่มให้เหมาะกับมือถือ */
+  .responsive-table .preview-btn,
+  .responsive-table .edit-btn,
+  .responsive-table .delete-btn {
+    font-size: 12px;
+    width: 80px;
+    padding: 6px 12px;
+  }
+}
+
+/* 📳 ปรับ Card View ให้พอดีกับมือถือเล็กมาก */
+@media (max-width: 480px) {
+  .responsive-table tbody tr {
+    padding: 12px;
+  }
+
+  .responsive-table tbody td {
+    font-size: 13px;
+    padding: 8px 0;
+  }
+
+  .responsive-table tbody td::before {
+    width: 40%;
+  }
+
+  .responsive-table tbody td span {
+    width: 60%;
+  }
+
+  .responsive-table tbody td img {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* ปรับขนาดปุ่มให้เหมาะกับมือถือ */
+  .responsive-table .preview-btn,
+  .responsive-table .edit-btn,
+  .responsive-table .delete-btn {
+    font-size: 9px;
+    width: 60px;
+    padding: 6px 12px;
+    text-align: center;
+  }
+}
+/* 🎯 ดีไซน์พื้นฐานสำหรับ h2 */
+.responsive-h2 {
+  font-size: 2rem; /* ค่าเริ่มต้น */
+  font-weight: bold;
+  text-align: center;
+  color: #1e40af; /* สีฟ้า */
+  margin-bottom: 24px;
+  line-height: 1.3;
+  white-space: nowrap; /* ป้องกันขึ้นบรรทัดใหม่ */
+  overflow: hidden; /* ซ่อนส่วนที่เกิน */
+  text-overflow: ellipsis; /* เพิ่ม ... ถ้าข้อความยาวเกิน */
+}
+
+/* 🌍 สำหรับจอใหญ่ (Desktop) */
+@media (min-width: 1200px) {
+  .responsive-h2 {
+    font-size: 1.7rem;
+  }
+}
+
+/* 📲 ปรับขนาดสำหรับแท็บเล็ต (หน้าจอกลาง) */
+@media (max-width: 1024px) {
+  .responsive-h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* 📱 ปรับขนาดสำหรับมือถือ (หน้าจอเล็ก) */
+@media (max-width: 768px) {
+  .responsive-h2 {
+    font-size: 1.1rem;
+  }
+}
+
+/* 📳 ปรับขนาดสำหรับมือถือขนาดเล็กมาก (ต่ำกว่า 480px) */
+@media (max-width: 480px) {
+  .responsive-h2 {
+    font-size: 0.9rem;
   }
 }
 </style>

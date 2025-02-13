@@ -122,4 +122,75 @@ const login = async () => {
   transform: scale(1.05); /* ขยายปุ่มเพิ่มขึ้น 10% */
   transition: transform 0.2s ease-in-out; /* เพิ่มความลื่นไหล */
 }
+@media (max-width: 768px) {
+  /* ปรับ card ให้แคบลง และเพิ่ม padding */
+  .card {
+    max-width: 90%; /* ลดขนาดของฟอร์มให้พอดีกับหน้าจอ */
+    padding: 1.5rem;
+  }
+
+  /* ปรับขนาดโลโก้ */
+  .card-body img {
+    width: 4rem; /* ลดขนาดโลโก้ */
+    height: 4rem;
+  }
+
+  /* ปรับขนาดตัวหนังสือ */
+  .card-body p {
+    font-size: 1.5rem; /* ลดขนาดหัวข้อ */
+  }
+
+  /* ปรับ input field */
+  .input-bordered {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+
+  /* ปรับปุ่มกด */
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+
+  .btn:hover {
+    transform: scale(1.03); /* ลดขนาดการขยายเมื่อ hover */
+  }
+}
+
+@media (max-width: 480px) {
+  /* ปรับ card ให้เต็มจอมากขึ้น */
+  .card {
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  /* ปรับขนาดโลโก้ */
+  .card-body img {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  /* ปรับขนาดตัวหนังสือ */
+  .card-body p {
+    font-size: 1.25rem; /* ลดขนาดหัวข้อ */
+  }
+
+  /* ปรับขนาด input */
+  .input-bordered {
+    font-size: 0.85rem;
+    padding: 0.65rem;
+  }
+
+  /* ปรับขนาดปุ่ม */
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.65rem;
+  }
+
+  /* ปรับปุ่มย้อนกลับให้มีระยะห่างที่เหมาะสม */
+  .mt-10 {
+    margin-top: 1.5rem;
+  }
+}
 </style>
+//login//

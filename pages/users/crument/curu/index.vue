@@ -51,7 +51,7 @@
       </div>
 
       <!-- ตาราง -->
-      <div class="bg-white p-6 rounded-lg shadow-lg">
+      <div class="inventory-table bg-white p-6 rounded-lg shadow-lg">
         <h2 class="text-xl font-bold mb-4 text-blue-600 text-center">รายการครุภัณฑ์</h2>
         <div class="overflow-x-auto">
           <!-- เพิ่ม container ที่มี scroll -->
@@ -160,16 +160,16 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
         @click.self="closeModal"
       >
-        <!-- ปุ่มปิด -->
-        <button
-          @click="closeModal"
-          class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 transition"
-        >
-          ✕
-        </button>
         <div
           class="bg-white p-6 rounded-lg w-full max-w-5xl max-h-[90vh] overflow-auto shadow-lg relative"
         >
+          <!-- ปุ่มปิด -->
+          <button
+            @click="closeModal"
+            class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 transition"
+          >
+            ✕
+          </button>
           <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">
             ผลลัพธ์การค้นหา
           </h2>
@@ -191,7 +191,7 @@
           </div>
 
           <!-- แสดงผลเป็นตาราง -->
-          <div class="bg-white p-6 rounded-lg shadow-lg">
+          <div class="inventory-table bg-white p-6 rounded-lg shadow-lg">
             <div class="overflow-y-auto max-h-96">
               <table
                 class="min-w-full table-auto border border-gray-300 rounded-lg shadow-sm"
@@ -207,7 +207,7 @@
                 <tbody>
                   <!-- แสดงผลข้อมูลที่ค้นหา -->
                   <tr v-for="result in filteredSearchResults" :key="result.id">
-                    <td data-label="ลำดับ">{{ result.number }}</td>
+                    <th data-label="ลำดับ">{{ result.number }}</th>
                     <td data-label="รูปภาพ">
                       <img
                         v-if="result.imageUrl"
@@ -244,7 +244,7 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       >
         <div
-          class="bg-white p-6 rounded-lg w-[800px] max-h-[90vh] overflow-auto shadow-lg relative"
+          class="details-modal bg-white p-6 rounded-lg w-[800px] max-h-[90vh] overflow-auto shadow-lg relative"
         >
           <!-- ปุ่มปิดมุมขวาบน -->
           <button
@@ -253,7 +253,7 @@
           >
             ✕
           </button>
-          <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">
+          <h2 class="responsive-h2 text-2xl font-bold mb-6 text-center text-blue-600">
             รายละเอียดครุภัณฑ์
           </h2>
 
@@ -751,31 +751,124 @@ th:last-child,
 td:last-child {
   border-right: none; /* ไม่แสดงเส้นแนวตั้งในคอลัมน์สุดท้าย */
 }
-/* สำหรับหัวตารางใน Details Modal */
-.details-modal th {
-  text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+/* 🎯 ดีไซน์พื้นฐานสำหรับตารางใน Details Modal */
+.details-modal {
+  width: 90%;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.details-modal table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.details-modal th,
+.details-modal td {
+  text-align: center;
   padding: 12px 16px;
-  background-color: #4f46e5; /* สีพื้นหลังของหัวตาราง */
-  color: white; /* สีข้อความ */
+  font-size: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+/* 🌍 สำหรับจอใหญ่ (Desktop) */
+.details-modal th {
+  background-color: #4f46e5;
+  color: white;
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 14px;
-  border-bottom: 2px solid #e5e7eb; /* เพิ่มเส้นแบ่งด้านล่าง */
-  white-space: nowrap; /* ป้องกันข้อความตัดบรรทัด */
+  font-size: 16px;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
 }
+
 .details-modal td {
-  text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
-  padding: 10px 12px;
-  font-size: 14px;
-  color: #4b5563; /* สีข้อความในตาราง */
-  border-bottom: 1px solid #e5e7eb; /* เพิ่มเส้นแบ่งด้านล่าง */
+  color: #4b5563;
 }
+
 .details-modal tr:nth-child(even) td {
-  background-color: #f9fafb; /* สีพื้นหลังของแถวคู่ */
+  background-color: #f9fafb;
 }
+
 .details-modal tr:hover td {
-  background-color: #e3f2fd; /* สีพื้นหลังเมื่อ hover */
+  background-color: #e3f2fd;
 }
+
+/* 📲 ปรับขนาดสำหรับแท็บเล็ต (หน้าจอกลาง) */
+@media (max-width: 1024px) {
+  .details-modal {
+    max-width: 700px;
+    padding: 16px;
+  }
+
+  .details-modal th,
+  .details-modal td {
+    font-size: 15px;
+    padding: 10px;
+  }
+}
+
+/* 📱 ปรับขนาดสำหรับมือถือ (หน้าจอเล็ก) */
+@media (max-width: 768px) {
+  .details-modal {
+    width: 95%;
+    max-width: 600px;
+    padding: 14px;
+    overflow-x: auto;
+  }
+
+  .details-modal table {
+    min-width: 500px;
+  }
+
+  .details-modal th,
+  .details-modal td {
+    font-size: 10px;
+    padding: 8px;
+  }
+}
+
+/* 📳 ปรับขนาดสำหรับมือถือขนาดเล็กมาก (ต่ำกว่า 480px) */
+@media (max-width: 480px) {
+  .details-modal {
+    width: 95%;
+    max-width: 100%;
+    padding: 12px;
+  }
+
+  .details-modal table {
+    min-width: 300px;
+  }
+
+  .details-modal th,
+  .details-modal td {
+    font-size: 8.5px;
+    padding: 6px;
+  }
+}
+
+/* 🖼️ ปรับขนาดรูปภาพให้เหมาะสม */
+.details-modal td img {
+  max-width: 100px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 🎯 ปรับปุ่มปิด modal */
+.details-modal button {
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+/* 🎯 ปรับปุ่มให้อยู่กึ่งกลาง */
+.details-modal .modal-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
 .preview-container {
   display: flex; /* ใช้ Flexbox */
   justify-content: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
@@ -1114,6 +1207,112 @@ header p {
 
   header p {
     font-size: 0.8rem;
+  }
+}
+@media (max-width: 768px) {
+  /* ใช้เฉพาะกับ "รายการครุภัณฑ์" เท่านั้น */
+  .inventory-table table,
+  .inventory-table thead,
+  .inventory-table tbody,
+  .inventory-table th,
+  .inventory-table td,
+  .inventory-table tr {
+    display: block;
+  }
+
+  .inventory-table thead {
+    display: none;
+  }
+
+  .inventory-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+  }
+
+  /* ปรับแต่ละ cell */
+  .inventory-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .inventory-table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #003c71;
+    flex-shrink: 0;
+    width: 40%;
+    text-align: left;
+    padding-right: 15px;
+    font-size: 14px;
+  }
+
+  .inventory-table tbody td span {
+    width: 60%;
+    text-align: right;
+    font-size: 14px;
+    color: #374151;
+    font-weight: 500;
+  }
+
+  .inventory-table tbody td img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-left: auto;
+    border: 2px solid #e5e7eb;
+  }
+
+  .inventory-table .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+}
+/* 🎯 ดีไซน์พื้นฐานสำหรับ h2 */
+.responsive-h2 {
+  font-size: 2rem; /* ค่าเริ่มต้นสำหรับ Desktop */
+  font-weight: bold;
+  text-align: center;
+  color: #1e40af; /* สีฟ้า */
+  margin-bottom: 24px;
+  line-height: 1.3;
+}
+
+/* 🌍 สำหรับจอใหญ่ (Desktop) */
+@media (min-width: 1200px) {
+  .responsive-h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* 📲 ปรับขนาดสำหรับแท็บเล็ต (หน้าจอกลาง) */
+@media (max-width: 1024px) {
+  .responsive-h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* 📱 ปรับขนาดสำหรับมือถือ (หน้าจอเล็ก) */
+@media (max-width: 768px) {
+  .responsive-h2 {
+    font-size: 1.6rem;
+  }
+}
+
+/* 📳 ปรับขนาดสำหรับมือถือขนาดเล็กมาก (ต่ำกว่า 480px) */
+@media (max-width: 480px) {
+  .responsive-h2 {
+    font-size: 1.4rem;
   }
 }
 </style>
