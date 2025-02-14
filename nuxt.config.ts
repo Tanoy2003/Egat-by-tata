@@ -1,14 +1,14 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from "nuxt3";
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   css: ["~/assets/css/main.css"],
-  ssr: false,
+  ssr: false, // ใช้ static rendering
   devtools: { enabled: true },
   modules: [
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "@nuxtjs/google-fonts",
-    // Simple usage
     "@nuxtus/nuxt-localtunnel",
   ],
   googleFonts: {
@@ -27,4 +27,13 @@ export default defineNuxtConfig({
     },
   },
   localtunnel: {},
+  router: {
+    extendRoutes(routes) {
+      // @ts-ignore
+      routes.push({
+        path: "/",
+        redirect: "/users", // ทำการ redirect จาก / ไปที่ /users
+      });
+    },
+  },
 });

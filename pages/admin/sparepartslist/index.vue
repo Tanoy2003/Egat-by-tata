@@ -302,7 +302,7 @@ watch(quantity, (newValue) => {
 
 // อัปเดตค่า default เมื่อโหลดข้อมูล
 watch(materials, () => {
-  selectedItemsPerPage.value = defaultItemsPerPage.value;
+  selectedItemsPerPage.value = 10; // ตั้งค่าเริ่มต้นเป็น 10
 });
 
 watch(selectedMaterial, (newValue) => {
