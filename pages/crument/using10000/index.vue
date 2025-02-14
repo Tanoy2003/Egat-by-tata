@@ -3,21 +3,19 @@
     class="flex flex-col items-center justify-center mt-0 font-prompt bg-gray-50 min-h-screen select-none"
   >
     <!-- Header -->
-    <header
-      class="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 text-white py-6 px-10 w-full shadow-md"
-    >
-      <div class="flex items-center justify-between max-w-5xl mx-auto flex-nowrap gap-4">
-        <div class="flex items-center gap-4">
+    <header class="header-container">
+      <div class="header-content">
+        <div class="logo-title">
           <img
             src="https://www.egat.co.th/home/en/wp-content/uploads/2024/03/engy-30.png"
             alt="logo"
-            class="w-16"
+            class="logo"
           />
-          <h1 class="text-2xl font-bold">
+          <h1 class="title">
             ระบบจัดการข้อมูลเครื่องมือเครื่องใช้ราคาต่ำกว่า 10,000 บาท
           </h1>
         </div>
-        <p class="text-sm">การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (EGAT)</p>
+        <p class="subtitle">การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (EGAT)</p>
       </div>
     </header>
 
@@ -444,6 +442,118 @@ svg {
 
   .preview-container {
     max-width: 120px;
+  }
+}
+/* Header Container */
+.header-container {
+  background: linear-gradient(to right, #1d4ed8, #2563eb, #3b82f6); /* Gradient color */
+  color: white;
+  padding: 1.5rem 2rem; /* Add padding for spacing */
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced shadow effect */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+}
+
+/* Header Content */
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+  gap: 0.5rem;
+  text-align: center; /* Center the content */
+}
+
+.header-content .logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.logo {
+  width: 3rem; /* Logo size */
+  height: auto;
+  transition: transform 0.3s ease; /* Smooth hover transition */
+}
+
+.logo:hover {
+  transform: scale(1.1); /* Logo zoom effect on hover */
+}
+
+.title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  font-family: "Prompt", sans-serif;
+  line-height: 1.4;
+  margin: 0;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  font-family: "Prompt", sans-serif;
+  font-weight: 400;
+  text-align: center;
+  opacity: 0.85;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+  .header-content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left; /* Align text to the left on larger screens */
+  }
+
+  .logo {
+    width: 4rem;
+  }
+
+  .title {
+    font-size: 1.25rem; /* Adjust font size for larger screens */
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .header-container {
+    padding: 2rem 3rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .logo {
+    width: 5rem;
   }
 }
 </style>
